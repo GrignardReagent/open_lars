@@ -1,9 +1,9 @@
 """Functional core of the LARS optimizer.
 
-The trust ratio ("adaptive learning rate") is a handful of scalar operations,
-so it is expressed here as plain tensor ops: no compiled extension, so it runs
-on CPU or any CUDA/ROCm/MPS device torch itself supports, in any floating
-dtype, with no compilation step at install time.
+The trust ratio ("adaptive learning rate") is just a handful of scalar
+operations, so it is written as plain tensor ops -- nothing to compile, and
+it runs on CPU or any CUDA/ROCm/MPS device torch supports, in any floating
+dtype.
 """
 
 import torch

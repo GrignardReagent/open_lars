@@ -9,20 +9,6 @@ batch sizes a single global learning rate is simultaneously too large for some
 layers and too small for others, so LARS rescales each layer's effective LR by
 a "trust ratio" - the ratio of that layer's weight norm to its gradient norm.
 
-## Why pure PyTorch?
-
-Older LARS packages computed the trust ratio in custom C++/CUDA kernels
-compiled at install time. That approach ages badly: it needs an `nvcc`
-matching the exact CUDA version your PyTorch wheel was built against (fragile
-on shared or HPC machines, impossible where no CUDA toolkit is installed), it
-pins you to one torch ABI so every torch upgrade means a rebuild, and once the
-underlying C++/ATen APIs churn, the extension stops building altogether.
-
-The trust ratio is a handful of scalar operations, so `open_lars` implements
-it as plain tensor ops instead. There is nothing to compile: it runs on CPU
-and on **any CUDA version supported by your PyTorch build** (also ROCm/MPS),
-with any `torch >= 1.8`.
-
 ## Install
 
 ```bash
